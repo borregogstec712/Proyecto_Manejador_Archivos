@@ -9,18 +9,29 @@
 
 # Importar bibliotecas para manipular archivos
 from pathlib import Path
+from datetime import datetime
+import math
+
+
 
 # FUNCIONES
+
+
+"""
 
 def compararNombres(a, b):
     #-> Shortcut para escribir menos y solo escribor a[0] y b[0] para comparar
     #-> Return Bool
+    #-> Actualización: Parece ser una función inutil, mejor voy a poner la ruta extra en el diccionario, y me ahorro todo esto
     return bool
 
 def compararPeso(a, b):
     #-> Shortcut para escribir menos y solo escribor a[0] y b[0] para comparar
     #-> Return Bool
+    #-> Actualización: Parece ser una función inutil, mejor voy a poner la ruta extra en el diccionario, y me ahorro todo esto
     return bool
+
+"""
 
 def tamañoCarpeta(c):
     ruta_carpeta = Path("c")
@@ -31,11 +42,13 @@ def tamañoCarpeta(c):
 
 ## validarCarpeta(c) -> Verifica que las carpetas existan en la ruta correcta, y que las dos esten en la misma carpeta
 def validarCarpetas():
+    carpeta = Path(ruta)
+    return carpeta.is_dir()
 
-    return bool
-
-
-def obtenerArchivos(c):     # Obtiene los archivos de una carpeta y su peso
+def obtenerArchivos(c):     
+    # Obtiene los archivos de una carpeta y su peso
+        #-> Actualización: Tambien obtener su ruta absoluta para usarla al agregar los archivos en la nueva carpeta
+    
     f = {}          #-> Crea un diccionario  -> Actualización: Mejor usar un diccionario de diccionario  
     #-> Ejecuta un ciclo for basandose en el tamaño de la carpeta
     #-> Sort los archivos por orden alfabetico
@@ -65,7 +78,11 @@ def compararCarpetas(a, b):
             # Al finalizar la comparación se agregan el o los archivos a la carpeta final
 
 
+
     return f
+
+def actualizarNombresYUbicaciónCarpetas(): 
+    # Función extra -> Busca hacer una inversión de nombres; Copia la carpeta final en las dos ubicaciones con el mismo nombre y la fecha{importar libreria}, y pregunta al usuario si quiere guardar una copia de las carpetas que se modificaron, y si si, cual es el path, ahi se guardan con nombre "CarpetaA_XX/XX/XXXX"
 
 def estatusCarpetas(a, b):
     eliminados = 0
