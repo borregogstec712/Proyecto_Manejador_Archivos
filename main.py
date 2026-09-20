@@ -5,13 +5,13 @@
     #-> Que solo genere un nuevo archivo, que le ponga el nombre en comun y que los pasados los guarde con nombres diferentes basandose en si eran la carpeta 1 o 2
     #-> Inicialmente habia considerado hacer una comparación de archivos directa basandome en el sort que obtenia al ordenas basandome en comparación directa, pero le añade demasiado tiempo, por lo que decidi modificar el algoritmo y mejor hacer una comparación en arbol basandome en las primeras letras y peso, osea, solo se compara el archivo contra el subset de archivos con la misma letra, que este como en arbol, y luego se hace la comparación por nombre y peso, pero no se hace directamente en la lista original
 
+
 ##-- CODIGO --##
 
 # Importar bibliotecas para manipular archivos
 from pathlib import Path
 from datetime import datetime
 import math
-
 
 
 # FUNCIONES
@@ -40,16 +40,17 @@ def tamañoCarpeta(c):
     #-> Regresa el numero de archivos en una carpeta
 
 
-## validarCarpeta(c) -> Verifica que las carpetas existan en la ruta correcta, y que las dos esten en la misma carpeta
-def validarCarpetas():
-    carpeta = Path(ruta)
+## validarCarpeta(c) -> Verifica que las carpetas existan en la ruta correcta
+def validarCarpetas(c):
+    carpeta = Path(c)
     return carpeta.is_dir()
 
 def obtenerArchivos(c):     
     # Obtiene los archivos de una carpeta y su peso
-        #-> Actualización: Tambien obtener su ruta absoluta para usarla al agregar los archivos en la nueva carpeta
-    
-    f = {}          #-> Crea un diccionario  -> Actualización: Mejor usar un diccionario de diccionario  
+    #-> Actualización: Tambien obtener su ruta absoluta para usarla al agregar los archivos en la nueva carpeta
+    #-> Evaluar si conviene usar ultima fecha de modificación para evaluar
+
+    f = []      #-> Actualización: Mejor usar una lista de diccionarios 
     #-> Ejecuta un ciclo for basandose en el tamaño de la carpeta
     #-> Sort los archivos por orden alfabetico
     return f #-> Return el diccionario de diccionarios
@@ -60,7 +61,7 @@ def compararCarpetas(a, b):
     # Hace un diccionario final con los nombres de los archivos y al hacer la comparación de una vez agrega el archivo final a la carpeta
 
     f = {}    # Crea un diccionario final
-    size_a , size_b = tamañoCarpeta(a) , tamañoCarpeta(b)
+    size_a , size_b = len(a) , len(b)
     size = 0
     if size_a > size_b :
         size = a
@@ -79,24 +80,59 @@ def compararCarpetas(a, b):
 
 
 
-    return f
+    return None
 
-def actualizarNombresYUbicaciónCarpetas(): 
+def actualizarNombresYUbicaciónCarpetas(r1, r2, rD): 
     # Función extra -> Busca hacer una inversión de nombres; Copia la carpeta final en las dos ubicaciones con el mismo nombre y la fecha{importar libreria}, y pregunta al usuario si quiere guardar una copia de las carpetas que se modificaron, y si si, cual es el path, ahi se guardan con nombre "CarpetaA_XX/XX/XXXX"
+    ahora = datetime.now()
+    fecha = ahora.strftime("%d-%m-%Y")
+
+    nameA = "r1" + fecha
+    nameB = "r2" + fecha
+    nameF = "rD" + fecha
+
+    print(f"Carpeta A: {r1}")
+    print(f"Carpeta B: {r2}")
+    print(f"Carpeta Final: {rD}")
+
+    return None
+
 
 def estatusCarpetas(a, b):
     eliminados = 0
     copiados = 0
     creados = 0
 
+    print(f"Se eliminaron {eliminados} archivos")
+    print(f"Se copiaron {copiados} archivos")
+    print(f"Se crearon {creados} archivos")
+
+    return None
+
  
 # MAIN
 
 def main():
-    print("Hola Bienvenido a el comparador de archivos")
-    n = int(input("Cuantos archivos deseas comparar? "))
+    print("Hola Bienvenido a el comparador de dos carpetas!")
+    # n = int(input("Cuantos archivos deseas comparar? ")) -> A futuro evaluar como poder hacer una función que permita comparar n numero de carpetas
     ruta1 = str(input("carpeta1: "))        # Pide la ruta 1
     ruta2 = str(input("carpeta2: "))        # Pide la ruta 2
+    rutaDestino = str(input("Ruta de Destino: "))
+
+    if (validarCarpetas(ruta1) and validarCarpetas(ruta2)) == True :
+        a = obtenerArchivos(ruta1)
+        b = obtenerArchivos(ruta2)
+
+        compararCarpetas(a, b)
+        actualizarNombresYUbicaciónCarpetas()
+        estatusCarpetas(a, b)
+        actualizarNombresYUbicaciónCarpetas(ruta1, ruta2, rutaDestino)
+
+
+
+
+    else:
+        print("Coloca rutas de carpetas validas")
 
 
 
