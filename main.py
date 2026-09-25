@@ -130,6 +130,8 @@ def main():
         estatusCarpetas(a, b)
         actualizarNombresYUbicaciónCarpetas(ruta1, ruta2, rutaDestino)
 
+        print("Listo!")
+
     else:
         print("Coloca rutas de carpetas validas!")
 
