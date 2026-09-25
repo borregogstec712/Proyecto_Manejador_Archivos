@@ -14,12 +14,14 @@
 from pathlib import Path
 from datetime import datetime
 import math
+import os
 
 
 # FUNCIONES
 
 
 """
+# FUNCIONES OBSOLETAS
 
 def compararNombres(a, b):
     #-> Shortcut para escribir menos y solo escribor a[0] y b[0] para comparar
@@ -48,15 +50,28 @@ def validarCarpetas(c):
     return carpeta.is_dir()
 
 def obtenerArchivos(c):     
-    # Obtiene los archivos de una carpeta y su peso
-    #-> Actualización: Tambien obtener su ruta absoluta para usarla al agregar los archivos en la nueva carpeta
-    #-> Evaluar si conviene usar ultima fecha de modificación para evaluar
+    # Obtiene el nombre, peso, y ruta absoluta de los archivos de una carpeta y los guarda en una lista de diccionarios
 
-    f = []      #-> Actualización: Mejor usar una lista de diccionarios 
+    f = []      # Lista de diccionarios
+
     #-> Ejecuta un ciclo for basandose en el tamaño de la carpeta
+
+    with os.scandir(c) as archivos:
+        for archivo in archivos:
+            if archivo.is_file():
+                datos = {
+                    "nombre": archivo.name,
+                    "peso_bytes": archivo.stat().st_size,
+                    "ruta_absoluta": os.path.abspath(archivo.path)
+                }
     #-> Sort los archivos por orden alfabetico
+    f.sort(key=lambda x: x["nombre"].lower())
+
     return f #-> Return el diccionario de diccionarios
 
+    arbol = {}
+
+    
 
 
 def compararCarpetas(a, b):
