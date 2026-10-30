@@ -16,6 +16,29 @@ from datetime import datetime
 import math
 
 
+##-- REHACER EL PROGRAMA --##
+## Estoy pensando hacer el programa, quiero hacer una estructura mas simple, se me estaba ocurriendo algo simple
+## que al hacer la comparación de los archivos lo que se guarde sea la ruta correcta al archivo, osea, 
+## que se guarde digamos el nombre, osea el nombre del objeto, 
+## pero mas importante que se guarde la ruta, ya sea de la carpeta A o B, 
+## y que al final, cuando se pase el diccionario o lista con las rutas y nombres y todo eso, 
+## simplemente tome el nombre que se cambio y vaya a la carpeta y haga una copia y le asigne el nombre del objeto, 
+## puedo hacer estoy muy facil creando una nueva función que imprima y guarde y copie al mismo tiempo. 
+
+## La idea basicamente es que se guarden los metadatos de los archivos de dos carpetas en un diccionario, uno por cada carpeta, y en ellos se guardan los datos de peso y ruta sobre todo --> Funcion obtener_archivos()
+## En la misma función se ordenan los diccionarios por letras para poder manejar grandes cantidades de archivos de forma rapida, esta función toma un diccionario y basandose en el nombre del archivo crea un nuevo diccionario basandose en las letras del abecedario y pone adentro los elementos que tienen un nombre que empieza con esa letra
+## Lo mas importante es que la función ordenarArchivos() desde el inicio tenga la base creada con todas las letras, y luego simplemente se valida la letra inicial del nombre del archivo y se guarda ahi, asi lo hacemos todo en un paso, a lo mejor hay que hacer una función que tenga una relación entre posición y letra del abecedario
+## Una vez que se ordenaron los archivos, hacemos la función de compararAchivos(), que lo que hace es que recibe los dos diccionarios organizados por las letras, y empieza a recorrer letra por letra. Entonces el bucle se ejecuta por bloque por letra, y se guarda en un diccionario tambien separado por letra, antes de todo se verifica el tamaño del diccionario de la letra en ambas listas, y si es cero se esquipa directamente.
+## Hay dos funciones, una que es comparar carpeta, y una que va a ser comparar_archivos(a, b) , que compara dos archivos, primero su nombre, peso, fecha, etc... y aplica una función de evaluar_similitud(a, b) que si es verdadera se decide que se hacen copias de ambos, y si son similares en fecha y nombre, y peso y todo eso, entonces de crea un nuevo nombre, compararArchivos(a, b) debe de regresar los archivos que se deben de escribir, y que se iguale a una función de actualizar() que imprima en pantalla los archivos que se estan modificando, el nuevo nombre, etc...
+## Se busca que la función actualizar este imprimiendo todos los cambios, aunque tambien seria necesario llevar un contador de archivos modificados, duplicados, etc... que lo deberia de regresar idealmente la función comparar_archivos(a, b)
+## La función compararCarpetas(), acepta pues dos carpetas y regresa una nueva con los nuevos objetos y sus referencias a los caminos que se buscan, para que luego la función crearCarpeta() recorra todo ese diccionario final y cree la nueva carpeta con los documentos correspondientes.
+## La idea es que las carpetas originales no se toquen para nada, simplemente se usen como referencias y luego se cree la carpeta final basandose en el mapa que se creo.
+## Antes de crear la carpeta final, voy a hacer una función de revisarArchivos(), que basicamente recorra cada uno de los documentos, te muestre su nombre, de la comparación de que archivos surgio, y su peso y fecha de creación, y te de la opcion de agregarlo, no agregarlo, pasar al siguiente grupo de letras, o ya finalizar el proceso, manteniendo los cambios nuevos, pero dejando los demas que no se modificaron como y por default y si agregandolos(y/n/s/e)
+## El "y" va a ser una propiedad de cada objeto, va a ser "estado" : "y" o "n" ; y es lo que se va a checar cuando se esta creando la carpeta, para ver si el archivo se agrega a la versión final. 
+## Al finalizar esto, te pide el nombre para la carpeta, por default elige el nombre de la carpeta A original + la fecha del dia de hoy, de la forma "DocumentosA_AA/AA/AA", asi que puedes darlo enter para guardarlo asi o modificar el nombre,
+## La nueva carpeta siempre se guarda en la misma ubicación que las otras dos carpetas, en el mismo nivel/jerarquia
+##
+
 # FUNCIONES
 
 
@@ -81,21 +104,6 @@ def compararCarpetas(a, b):
             # Al finalizar la comparación se agregan el o los archivos a la carpeta final
 
 
-
-    return None
-
-def actualizarNombresYUbicaciónCarpetas(r1, r2, rD): 
-    # Función extra -> Busca hacer una inversión de nombres; Copia la carpeta final en las dos ubicaciones con el mismo nombre y la fecha{importar libreria}, y pregunta al usuario si quiere guardar una copia de las carpetas que se modificaron, y si si, cual es el path, ahi se guardan con nombre "CarpetaA_XX/XX/XXXX"
-    ahora = datetime.now()
-    fecha = ahora.strftime("%d-%m-%Y")
-
-    nameA = "r1" + fecha
-    nameB = "r2" + fecha
-    nameF = "rD" + fecha
-
-    print(f"Carpeta A: {r1}")
-    print(f"Carpeta B: {r2}")
-    print(f"Carpeta Final: {rD}")
 
     return None
 
