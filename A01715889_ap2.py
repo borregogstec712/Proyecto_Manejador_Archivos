@@ -1,5 +1,13 @@
 # https://github.com/borregogstec712/Proyecto_Manejador_Archivos
 
+# 
+
+"""
+Nombre Proyecti
+Autor
+Breve descripción que hace el proyecto
+"""
+
 ##-- NOTAS e IDEAS --##
 # Considerar hacer control de versiones muy basico?
     #-> Osea que guarde en unps archivos los estados pasados de los archivos???
@@ -37,10 +45,19 @@ def compararPeso(a, b):
 
 """
 
-def tamañoCarpeta(c):
+# Se va a hacer la desceipción de cada función para cada función
+# Cambiar nombres variables
+
+"""
+Inputs función
+Outputs función
+Descripción
+"""
+
+def tamañoCarpeta(carpeta):
     ruta_carpeta = Path("c")
-    n = sum(1 for archivo in ruta_carpeta.iterdir() if archivo.is_file())
-    return n
+    numero_archivos = sum(1 for archivo in ruta_carpeta.iterdir() if archivo.is_file())
+    return numero_archivos
     #-> Regresa el numero de archivos en una carpeta
 
 
@@ -71,7 +88,7 @@ def obtenerArchivos(c):
 
     arbol = {}
 
-    
+
 
 
 def compararCarpetas(a, b):
