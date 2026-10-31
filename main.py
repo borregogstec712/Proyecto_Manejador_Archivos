@@ -29,8 +29,8 @@ import math
 ## En la misma función se ordenan los diccionarios por letras para poder manejar grandes cantidades de archivos de forma rapida, esta función toma un diccionario y basandose en el nombre del archivo crea un nuevo diccionario basandose en las letras del abecedario y pone adentro los elementos que tienen un nombre que empieza con esa letra
 ## Lo mas importante es que la función ordenarArchivos() desde el inicio tenga la base creada con todas las letras, y luego simplemente se valida la letra inicial del nombre del archivo y se guarda ahi, asi lo hacemos todo en un paso, a lo mejor hay que hacer una función que tenga una relación entre posición y letra del abecedario
 ## Una vez que se ordenaron los archivos, hacemos la función de compararAchivos(), que lo que hace es que recibe los dos diccionarios organizados por las letras, y empieza a recorrer letra por letra. Entonces el bucle se ejecuta por bloque por letra, y se guarda en un diccionario tambien separado por letra, antes de todo se verifica el tamaño del diccionario de la letra en ambas listas, y si es cero se esquipa directamente.
-## Hay dos funciones, una que es comparar carpeta, y una que va a ser comparar_archivos(a, b) , que compara dos archivos, primero su nombre, peso, fecha, etc... y aplica una función de evaluar_similitud(a, b) que si es verdadera se decide que se hacen copias de ambos, y si son similares en fecha y nombre, y peso y todo eso, entonces de crea un nuevo nombre, compararArchivos(a, b) debe de regresar los archivos que se deben de escribir, y que se iguale a una función de actualizar() que imprima en pantalla los archivos que se estan modificando, el nuevo nombre, etc...
-## Se busca que la función actualizar este imprimiendo todos los cambios, aunque tambien seria necesario llevar un contador de archivos modificados, duplicados, etc... que lo deberia de regresar idealmente la función comparar_archivos(a, b)
+## Hay dos funciones, una que es comparar carpeta, y una que va a ser compararArchivos(a, b) , que compara dos archivos, primero su nombre, peso, fecha, etc... y aplica una función de evaluar_similitud(a, b) que si es verdadera se decide que se hacen copias de ambos, y si son similares en fecha y nombre, y peso y todo eso, entonces de crea un nuevo nombre, compararArchivos(a, b) debe de regresar los archivos que se deben de escribir, y que se iguale a una función de actualizar() que imprima en pantalla los archivos que se estan modificando, el nuevo nombre, etc...
+## Se busca que la función actualizar() este imprimiendo todos los cambios, aunque tambien seria necesario llevar un contador de archivos modificados, duplicados, etc... que lo deberia de regresar idealmente la función compararCarpetas(a, b)
 ## La función compararCarpetas(), acepta pues dos carpetas y regresa una nueva con los nuevos objetos y sus referencias a los caminos que se buscan, para que luego la función crearCarpeta() recorra todo ese diccionario final y cree la nueva carpeta con los documentos correspondientes.
 ## La idea es que las carpetas originales no se toquen para nada, simplemente se usen como referencias y luego se cree la carpeta final basandose en el mapa que se creo.
 ## Antes de crear la carpeta final, voy a hacer una función de revisarArchivos(), que basicamente recorra cada uno de los documentos, te muestre su nombre, de la comparación de que archivos surgio, y su peso y fecha de creación, y te de la opcion de agregarlo, no agregarlo, pasar al siguiente grupo de letras, o ya finalizar el proceso, manteniendo los cambios nuevos, pero dejando los demas que no se modificaron como y por default y si agregandolos(y/n/s/e)
@@ -41,22 +41,7 @@ import math
 
 # FUNCIONES
 
-
-"""
-
-def compararNombres(a, b):
-    #-> Shortcut para escribir menos y solo escribor a[0] y b[0] para comparar
-    #-> Return Bool
-    #-> Actualización: Parece ser una función inutil, mejor voy a poner la ruta extra en el diccionario, y me ahorro todo esto
-    return bool
-
-def compararPeso(a, b):
-    #-> Shortcut para escribir menos y solo escribor a[0] y b[0] para comparar
-    #-> Return Bool
-    #-> Actualización: Parece ser una función inutil, mejor voy a poner la ruta extra en el diccionario, y me ahorro todo esto
-    return bool
-
-"""
+def actualizar(texto):
 
 def tamañoCarpeta(c):
     ruta_carpeta = Path("c")
@@ -80,6 +65,7 @@ def obtenerArchivos(c):
     #-> Sort los archivos por orden alfabetico
     return f #-> Return el diccionario de diccionarios
 
+def compararArchivos(a, b):
 
 
 def compararCarpetas(a, b):
@@ -119,7 +105,10 @@ def estatusCarpetas(a, b):
 
     return None
 
+def crearCarpeta(diccionario_final):
  
+    return
+
 # MAIN
 
 def main():
