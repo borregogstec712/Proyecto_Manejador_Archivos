@@ -124,9 +124,11 @@ def compararArchivos(a, b):
         estatus = False
         archivo = None
     else :      # Entra a la fase de comparación
-        # Voy a implementar un sistema por puntos para elegir que cosa tiene mas peso
 
-        compararCaracteristicas(a["peso_kb"] , b["peso_kb"])
+        if a == compararCaracteristicas(a["peso_kb"] , b["peso_kb"]) :
+            archivo = a
+        else :
+            archivo = b
 
         # Ya no se si hacerlo con puntos, porque mas bien es mejor hacerlo por filtros, por ejemplo si
 
@@ -137,9 +139,35 @@ def compararCarpetas(a, b):
     # Lo que este codigo hace es que agarra dos diccionarios(que ya estan organizados por letra),
     # Y luego crea un nuevo diccionario -> que tambien va a estar organozado por letra, donde se van a guardar
 
-
-
     diccionario_final = {}    # Crea un diccionario final
+
+    for letraA in a :
+        for i in range(len(letraA)) :
+            for letraB in b :
+                for j in range(len(letraB))
+                    estatus = False
+
+                    estatus, archivo = compararArchivos(i, )
+
+                    grupo_existente = None
+                    for grupo in diccionario_final:
+                        if grupo["letra"] == primera_letra:
+                            grupo_existente = grupo
+                            break
+                    
+                    if grupo_existente is None:
+                        grupo_existente = {
+                            "letra": primera_letra,
+                            "archivos": []
+                        }
+                        diccionario_final.append(grupo_existente)
+
+
+
+
+
+
+
     size_a , size_b = len(a) , len(b)
     size = 0
     if size_a > size_b :
