@@ -27,7 +27,7 @@ import math
 
 ## La idea basicamente es que se guarden los metadatos de los archivos de dos carpetas en un diccionario, uno por cada carpeta, y en ellos se guardan los datos de peso y ruta sobre todo --> Funcion obtener_archivos()
 ## En la misma función se ordenan los diccionarios por letras para poder manejar grandes cantidades de archivos de forma rapida, esta función toma un diccionario y basandose en el nombre del archivo crea un nuevo diccionario basandose en las letras del abecedario y pone adentro los elementos que tienen un nombre que empieza con esa letra
-## Lo mas importante es que la función ordenarArchivos() desde el inicio tenga la base creada con todas las letras, y luego simplemente se valida la letra inicial del nombre del archivo y se guarda ahi, asi lo hacemos todo en un paso, a lo mejor hay que hacer una función que tenga una relación entre posición y letra del abecedario
+## Lo mas importante es que la función obtenerArchivos() desde el inicio tenga la base creada con todas las letras, y luego simplemente se valida la letra inicial del nombre del archivo y se guarda ahi, asi lo hacemos todo en un paso, a lo mejor hay que hacer una función que tenga una relación entre posición y letra del abecedario
 ## Una vez que se ordenaron los archivos, hacemos la función de compararAchivos(), que lo que hace es que recibe los dos diccionarios organizados por las letras, y empieza a recorrer letra por letra. Entonces el bucle se ejecuta por bloque por letra, y se guarda en un diccionario tambien separado por letra, antes de todo se verifica el tamaño del diccionario de la letra en ambas listas, y si es cero se esquipa directamente.
 ## Hay dos funciones, una que es comparar carpeta, y una que va a ser compararArchivos(a, b) , que compara dos archivos, primero su nombre, peso, fecha, etc... y aplica una función de evaluar_similitud(a, b) que si es verdadera se decide que se hacen copias de ambos, y si son similares en fecha y nombre, y peso y todo eso, entonces de crea un nuevo nombre, compararArchivos(a, b) debe de regresar los archivos que se deben de escribir, y que se iguale a una función de actualizar() que imprima en pantalla los archivos que se estan modificando, el nuevo nombre, etc...
 ## Se busca que la función actualizar() este imprimiendo todos los cambios, aunque tambien seria necesario llevar un contador de archivos modificados, duplicados, etc... que lo deberia de regresar idealmente la función compararCarpetas(a, b)
@@ -37,11 +37,10 @@ import math
 ## El "y" va a ser una propiedad de cada objeto, va a ser "estado" : "y" o "n" ; y es lo que se va a checar cuando se esta creando la carpeta, para ver si el archivo se agrega a la versión final. 
 ## Al finalizar esto, te pide el nombre para la carpeta, por default elige el nombre de la carpeta A original + la fecha del dia de hoy, de la forma "DocumentosA_AA/AA/AA", asi que puedes darlo enter para guardarlo asi o modificar el nombre,
 ## La nueva carpeta siempre se guarda en la misma ubicación que las otras dos carpetas, en el mismo nivel/jerarquia
-##
+## La función revisarArchivos() solo va a funcionar de forma local
 
 # FUNCIONES
-
-def actualizar(texto):
+    
 
 def tamañoCarpeta(c):
     ruta_carpeta = Path("c")
@@ -60,12 +59,57 @@ def obtenerArchivos(c):
     #-> Actualización: Tambien obtener su ruta absoluta para usarla al agregar los archivos en la nueva carpeta
     #-> Evaluar si conviene usar ultima fecha de modificación para evaluar
 
-    f = []      #-> Actualización: Mejor usar una lista de diccionarios 
-    #-> Ejecuta un ciclo for basandose en el tamaño de la carpeta
-    #-> Sort los archivos por orden alfabetico
-    return f #-> Return el diccionario de diccionarios
+    carpeta = Path(c)
+
+    if not carpeta.exists() or not carpeta.is_dir():
+        return "La ruta especificada no existe"
+
+    documentos = []
+
+    for archivo in carpeta.iterdir():
+        if archivo.is_file():
+
+            primera_letra = archivo.name[0].upper()
+            if not primera_letra.isalpha():
+                primera_letra = '#'
+
+            caracteristicas = archivo.stat()
+            
+            fecha_creacion = datetime.fromtimestamp(caracteristicas.st_ctime).strftime('%Y-%m-%d %H:%M:%S')
+            fecha_modificacion = datetime.fromtimestamp(caracteristicas.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+            
+            grupo_existente = None
+            for grupo in documentos:
+                if grupo["letra"] == primera_letra:
+                    grupo_existente = grupo
+                    break
+            
+            if grupo_existente is None:
+                grupo_existente = {
+                    "letra": primera_letra,
+                    "archivos": []
+                }
+                documentos.append(grupo_existente)
+
+            grupo_existente["archivos"].append({
+                "nombre": archivo.name,
+                "ruta_absoluta": str(archivo.resolve()),
+                "peso_kb": round(caracteristicas.st_size / 1024, 2),
+                "fecha_creacion": fecha_creacion,
+                "fecha_modificacion": fecha_modificacion,
+                "extension": archivo.suffix
+            })
+            
+    return documentos
+
 
 def compararArchivos(a, b):
+    # Lo que este codigo hace es que agarra dos diccionarios(que ya estan organizados por letra),
+    # Y luego crea un nuevo diccionario -> que tambien va a estar organozado por letra, donde se van a guardar
+
+
+
+    return documentos
 
 
 def compararCarpetas(a, b):
@@ -105,6 +149,10 @@ def estatusCarpetas(a, b):
 
     return None
 
+def revisarArchivos():
+
+    return
+
 def crearCarpeta(diccionario_final):
  
     return
@@ -122,10 +170,6 @@ def main():
         a = obtenerArchivos(ruta1)
         b = obtenerArchivos(ruta2)
 
-        compararCarpetas(a, b)
-        actualizarNombresYUbicaciónCarpetas()
-        estatusCarpetas(a, b)
-        actualizarNombresYUbicaciónCarpetas(ruta1, ruta2, rutaDestino)
 
         print("Listo!")
 
