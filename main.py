@@ -132,10 +132,14 @@ def compararArchivos(a, b):
 
         # Ya no se si hacerlo con puntos, porque mas bien es mejor hacerlo por filtros, por ejemplo si
 
+
     return estatus, archivo
 
 
 def compararCarpetas(a, b):
+
+    ### Falta corregir esto, me confundi e hice mal la planeación, tengo que acabar los ciclos, es la parte mas complicada.
+
     # Lo que este codigo hace es que agarra dos diccionarios(que ya estan organizados por letra),
     # Y luego crea un nuevo diccionario -> que tambien va a estar organozado por letra, donde se van a guardar
 
@@ -144,7 +148,7 @@ def compararCarpetas(a, b):
     for letraA in a :
 
         grupo_existente = None
-        for grupo in diccionario_final:
+        for grupo in documentos:
             if grupo["letra"] == letraA
                 grupo_existente = grupo
                 break
@@ -154,7 +158,7 @@ def compararCarpetas(a, b):
                 "letra": letraA,
                 "archivos": []
             }
-            diccionario_final.append(grupo_existente)
+            documentos.append(grupo_existente)
 
         for i in range(len(letraA)) :
             for letraB in b :
@@ -165,47 +169,9 @@ def compararCarpetas(a, b):
 
                     if estatus == True :
                     # Aqui deberia entonces de agregar este diccionario/objeto con lo datos, a una letra especifica, que se supone que es en la que estoy, pero copiandolo en el nuevo diccionario final
-                    
 
+    return documentos
 
-
-
-
-
-
-
-    size_a , size_b = len(a) , len(b)
-    size = 0
-    if size_a > size_b :
-        size = a
-    else:
-        size = b
-
-
-     
-    for i in range(size):
-        print(i)
-        # Hacer comparación de nombre primero
-            # Si el nombre no se repite se agrega a f directamente
-                # Si el nombre si se repite se compara por peso del archivo
-                    # A futuro, como solo lo voy a usar con archivos md, se puede hacer una función que evalue tambien linea por linea, si se desea 100% de seguridad, claro es demasiado imrpobable y aumenta demasiado el tiempo, por lo que se podria implementar solo con archivos especificos mencionados en las preguntas iniciales
-            # Al finalizar la comparación se agregan el o los archivos a la carpeta final
-
-
-
-    return diccionario_final
-
-
-def estatusCarpetas(a, b):
-    eliminados = 0
-    copiados = 0
-    creados = 0
-
-    print(f"Se eliminaron {eliminados} archivos")
-    print(f"Se copiaron {copiados} archivos")
-    print(f"Se crearon {creados} archivos")
-
-    return None
 
 def revisarArchivos():
 
