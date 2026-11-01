@@ -41,6 +41,7 @@ import math
 
 # FUNCIONES
     
+# def compararArchivosMD(a, b): --> Asume que ya se sabe que dos archivos md tienen cierto nivel de similitud dentro de un cierto rango definido en una función que valide, en la función compararArchivos(a, b), y en esos casos especificos de coincidencia de al menos el peso en un rango, mas nombre, se entra, y se reconstruye un nuevo archivo
 
 def tamañoCarpeta(c):
     ruta_carpeta = Path("c")
@@ -102,20 +103,43 @@ def obtenerArchivos(c):
             
     return documentos
 
+def compararCaracteristicas(a, b)
+    if a > b :
+        return a 
+    elif a < b :
+        return b 
+    else :
+        return a
 
 def compararArchivos(a, b):
+    # Agarra dos archivos, que en verdad no son archivos ni nada, son objetos guardados en el diccionario.
+    # Esta es la función que no sabe nada, simplemente se le pasan dos objetos, no sabe si son de la misma letra, si tienen el mismo nombre, etc...
+    # El proposito de la función es que sea usada por la funcion compararCarpetas(a, b) para ir comparando grupo por grupo de letras, archivo por archivo
+    # Lleva acabo dos funciones, si ve que el nombre es diferente, regresa un "False" -> Este false indica que son archivos totalmente diferentes entre si, por lo que no busca hacer un archivo que reconcilie las diferencias ni nada, y regresa un none en el archivo
+    # Si ve que el es el mismo nombre entonces entra en la fase de comparación, compara fecha de creación y peso, da prioridad a peso sobre fecha de creación para elegir el archivo que se queda, y por ende el final
+    # A futuro, tal vez para el final seria interesante que valide si el archivo es markdown, que son los que me interesan para este proyecto y entonces haga una validación en caso de que el peso del archivo entre en un rengo determinado, para pasar por el archivo y vea si hay cierto nivel de similitud, y escriba un nuevo archivo, claro esto seria solo en casos especificos para mantener el codigo eficiente
+    # La función regresa un estatus y un archivo que puede ser combinado con la ruta y el nombre, que es lo mas clave, regresa un diccionario / objeto
+    
+    if a["nombre"] != b["nombre"] :
+        estatus = False
+        archivo = None
+    else :      # Entra a la fase de comparación
+        # Voy a implementar un sistema por puntos para elegir que cosa tiene mas peso
+
+        compararCaracteristicas(a["peso_kb"] , b["peso_kb"])
+
+        # Ya no se si hacerlo con puntos, porque mas bien es mejor hacerlo por filtros, por ejemplo si
+
+    return estatus, archivo
+
+
+def compararCarpetas(a, b):
     # Lo que este codigo hace es que agarra dos diccionarios(que ya estan organizados por letra),
     # Y luego crea un nuevo diccionario -> que tambien va a estar organozado por letra, donde se van a guardar
 
 
 
-    return documentos
-
-
-def compararCarpetas(a, b):
-    # Hace un diccionario final con los nombres de los archivos y al hacer la comparación de una vez agrega el archivo final a la carpeta
-
-    f = {}    # Crea un diccionario final
+    diccionario_final = {}    # Crea un diccionario final
     size_a , size_b = len(a) , len(b)
     size = 0
     if size_a > size_b :
@@ -135,7 +159,7 @@ def compararCarpetas(a, b):
 
 
 
-    return None
+    return diccionario_final
 
 
 def estatusCarpetas(a, b):
