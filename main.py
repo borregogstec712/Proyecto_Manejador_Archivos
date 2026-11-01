@@ -139,28 +139,34 @@ def compararCarpetas(a, b):
     # Lo que este codigo hace es que agarra dos diccionarios(que ya estan organizados por letra),
     # Y luego crea un nuevo diccionario -> que tambien va a estar organozado por letra, donde se van a guardar
 
-    diccionario_final = {}    # Crea un diccionario final
+    diccionario_final = []   # Crea un diccionario final
 
     for letraA in a :
+
+        grupo_existente = None
+        for grupo in diccionario_final:
+            if grupo["letra"] == letraA
+                grupo_existente = grupo
+                break
+        
+        if grupo_existente is None:
+            grupo_existente = {
+                "letra": letraA,
+                "archivos": []
+            }
+            diccionario_final.append(grupo_existente)
+
         for i in range(len(letraA)) :
             for letraB in b :
                 for j in range(len(letraB))
                     estatus = False
 
-                    estatus, archivo = compararArchivos(i, )
+                    estatus, archivo = compararArchivos(i, j)
 
-                    grupo_existente = None
-                    for grupo in diccionario_final:
-                        if grupo["letra"] == primera_letra:
-                            grupo_existente = grupo
-                            break
+                    if estatus == True :
+                    # Aqui deberia entonces de agregar este diccionario/objeto con lo datos, a una letra especifica, que se supone que es en la que estoy, pero copiandolo en el nuevo diccionario final
                     
-                    if grupo_existente is None:
-                        grupo_existente = {
-                            "letra": primera_letra,
-                            "archivos": []
-                        }
-                        diccionario_final.append(grupo_existente)
+
 
 
 
